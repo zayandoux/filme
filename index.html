@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MINHA MÃE A CAMPEÃ DE BOXE — Streaming</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#0b0f1a;
+    color:white;
+}
+
+/* NAV */
+.nav{
+    padding:20px 40px;
+    font-size:22px;
+    font-weight:bold;
+    background:#000;
+    color:#ffcc00;
+}
+
+/* HERO */
+.hero{
+    height:70vh;
+    background:linear-gradient(to top, #0b0f1a 10%, transparent 70%),
+    url('https://upload.wikimedia.org/wikipedia/commons/4/4d/Woody_Woodpecker.png') center/contain no-repeat;
+    background-color:#002b5c;
+    display:flex;
+    align-items:flex-end;
+    padding:40px;
+}
+
+.hero h1{
+    font-size:55px;
+    text-shadow:0 0 20px rgba(0,0,0,0.8);
+}
+
+/* PLAYER */
+.section{
+    padding:60px 20px;
+    text-align:center;
+}
+
+.player{
+    max-width:1000px;
+    margin:auto;
+    aspect-ratio:16/9;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 0 50px rgba(255,0,0,0.6);
+    transition:0.3s;
+}
+
+.player:hover{
+    transform:scale(1.02);
+}
+
+iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+/* BOTÃO */
+.btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:14px 30px;
+    background:red;
+    color:white;
+    text-decoration:none;
+    border-radius:30px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#cc0000;
+}
+
+/* FOOTER */
+footer{
+    margin-top:60px;
+    padding:20px;
+    text-align:center;
+    background:#000;
+    color:#aaa;
+    font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+🎬 Cartoon Streaming
+</div>
+
+<div class="hero">
+<h1>MINHA MÃE A CAMPEÃ DE BOXE</h1>
+</div>
+
+<div class="section">
+<h2>▶ Episódio Completo</h2>
+<br>
+
+<div class="player">
+<iframe
+src="https://www.dailymotion.com/embed/video/x9p9kaa"
+allow="autoplay; fullscreen; picture-in-picture"
+allowfullscreen>
+</iframe>
+</div>
+
+<a class="btn" href="https://www.dailymotion.com/video/x9p9kaa" target="_blank">
+Assistir direto no Dailymotion
+</a>
+
+</div>
+
+<footer>
+© 2026 Cartoon Streaming — Reprodução via Dailymotion
+</footer>
+
+</body>
+</html>
