@@ -10,57 +10,55 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:'Segoe UI', Arial, sans-serif;
 }
 
 body{
-    background:#0b0f1a;
+    background:linear-gradient(180deg,#0a0f1f,#111827);
     color:white;
 }
 
-/* NAV */
+/* NAVBAR */
 .nav{
-    padding:20px 40px;
-    font-size:22px;
-    font-weight:bold;
-    background:#000;
-    color:#ffcc00;
+    padding:18px 20px;
+    font-size:18px;
+    font-weight:600;
+    background:#0d0d0d;
+    color:#d4af37;
+    text-align:center;
+    letter-spacing:1px;
+    border-bottom:1px solid rgba(212,175,55,0.3);
 }
 
 /* HERO */
 .hero{
-    height:70vh;
-    background:linear-gradient(to top, #0b0f1a 10%, transparent 70%),
-    url('https://upload.wikimedia.org/wikipedia/commons/4/4d/Woody_Woodpecker.png') center/contain no-repeat;
-    background-color:#002b5c;
-    display:flex;
-    align-items:flex-end;
-    padding:40px;
+    padding:40px 20px 20px 20px;
+    text-align:center;
 }
 
 .hero h1{
-    font-size:55px;
-    text-shadow:0 0 20px rgba(0,0,0,0.8);
+    font-size:24px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.hero p{
+    font-size:14px;
+    color:#aaa;
 }
 
 /* PLAYER */
 .section{
-    padding:60px 20px;
-    text-align:center;
+    padding:20px;
 }
 
 .player{
-    max-width:1000px;
-    margin:auto;
+    width:100%;
     aspect-ratio:16/9;
-    border-radius:15px;
+    border-radius:14px;
     overflow:hidden;
-    box-shadow:0 0 50px rgba(255,0,0,0.6);
-    transition:0.3s;
-}
-
-.player:hover{
-    transform:scale(1.02);
+    box-shadow:0 0 40px rgba(212,175,55,0.25);
+    margin-bottom:20px;
 }
 
 iframe{
@@ -71,45 +69,55 @@ iframe{
 
 /* BOTÃO */
 .btn{
-    display:inline-block;
-    margin-top:25px;
-    padding:14px 30px;
-    background:red;
-    color:white;
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:14px;
+    background:linear-gradient(90deg,#d4af37,#b8962e);
+    color:black;
     text-decoration:none;
-    border-radius:30px;
-    font-weight:bold;
+    border-radius:40px;
+    font-weight:700;
     transition:0.3s;
 }
 
-.btn:hover{
-    background:#cc0000;
+.btn:active{
+    transform:scale(0.98);
 }
 
 /* FOOTER */
 footer{
-    margin-top:60px;
+    margin-top:40px;
     padding:20px;
     text-align:center;
-    background:#000;
-    color:#aaa;
-    font-size:14px;
+    background:#0d0d0d;
+    color:#777;
+    font-size:12px;
+}
+
+/* DESKTOP AJUSTE */
+@media(min-width:768px){
+    .hero h1{
+        font-size:36px;
+    }
+    .nav{
+        font-size:22px;
+    }
 }
 </style>
 </head>
 <body>
 
 <div class="nav">
-🎬 Cartoon Streaming
+🎬 STREAMING PREMIUM
 </div>
 
 <div class="hero">
 <h1>MINHA MÃE A CAMPEÃ DE BOXE</h1>
+<p>Assista agora em alta qualidade</p>
 </div>
 
 <div class="section">
-<h2>▶ Episódio Completo</h2>
-<br>
 
 <div class="player">
 <iframe
@@ -120,13 +128,13 @@ allowfullscreen>
 </div>
 
 <a class="btn" href="https://www.dailymotion.com/video/x9p9kaa" target="_blank">
-Assistir direto no Dailymotion
+▶ Assistir no Dailymotion
 </a>
 
 </div>
 
 <footer>
-© 2026 Cartoon Streaming — Reprodução via Dailymotion
+© 2026 Streaming Premium — Reprodução via Dailymotion
 </footer>
 
 </body>
