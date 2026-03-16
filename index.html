@@ -2,140 +2,126 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MINHA MÃE A CAMPEÃ DE BOXE — Streaming</title>
+<title>Bingo</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI', Arial, sans-serif;
-}
 
 body{
-    background:linear-gradient(180deg,#0a0f1f,#111827);
-    color:white;
+font-family: Arial;
+text-align:center;
+background:#f5f5f5;
 }
 
-/* NAVBAR */
-.nav{
-    padding:18px 20px;
-    font-size:18px;
-    font-weight:600;
-    background:#0d0d0d;
-    color:#d4af37;
-    text-align:center;
-    letter-spacing:1px;
-    border-bottom:1px solid rgba(212,175,55,0.3);
+h1{
+letter-spacing:10px;
 }
 
-/* HERO */
-.hero{
-    padding:40px 20px 20px 20px;
-    text-align:center;
+.grid{
+display:grid;
+grid-template-columns: repeat(5,80px);
+gap:12px;
+justify-content:center;
+margin-top:20px;
 }
 
-.hero h1{
-    font-size:24px;
-    font-weight:700;
-    margin-bottom:10px;
+.num{
+width:80px;
+height:80px;
+border:2px solid #444;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+cursor:pointer;
+background:white;
+transition:0.2s;
 }
 
-.hero p{
-    font-size:14px;
-    color:#aaa;
+.num.mark{
+border-radius:50%;
+background:#4caf50;
+color:white;
 }
 
-/* PLAYER */
-.section{
-    padding:20px;
+.free{
+background:#ddd;
+font-size:18px;
 }
 
-.player{
-    width:100%;
-    aspect-ratio:16/9;
-    border-radius:14px;
-    overflow:hidden;
-    box-shadow:0 0 40px rgba(212,175,55,0.25);
-    margin-bottom:20px;
+#msg{
+margin-top:25px;
+font-size:24px;
+font-weight:bold;
+color:#2e7d32;
+display:none;
 }
 
-iframe{
-    width:100%;
-    height:100%;
-    border:none;
-}
-
-/* BOTÃO */
-.btn{
-    display:block;
-    width:100%;
-    text-align:center;
-    padding:14px;
-    background:linear-gradient(90deg,#d4af37,#b8962e);
-    color:black;
-    text-decoration:none;
-    border-radius:40px;
-    font-weight:700;
-    transition:0.3s;
-}
-
-.btn:active{
-    transform:scale(0.98);
-}
-
-/* FOOTER */
-footer{
-    margin-top:40px;
-    padding:20px;
-    text-align:center;
-    background:#0d0d0d;
-    color:#777;
-    font-size:12px;
-}
-
-/* DESKTOP AJUSTE */
-@media(min-width:768px){
-    .hero h1{
-        font-size:36px;
-    }
-    .nav{
-        font-size:22px;
-    }
-}
 </style>
 </head>
+
 <body>
 
-<div class="nav">
-🎬 STREAMING PREMIUM
+<h1>BINGO</h1>
+
+<div class="grid" id="bingo">
+
+<div class="num">4</div>
+<div class="num">25</div>
+<div class="num">42</div>
+<div class="num">49</div>
+<div class="num">70</div>
+
+<div class="num">5</div>
+<div class="num">18</div>
+<div class="num">36</div>
+<div class="num">55</div>
+<div class="num">63</div>
+
+<div class="num">13</div>
+<div class="num">24</div>
+<div class="num free mark">FREE</div>
+<div class="num">54</div>
+<div class="num">64</div>
+
+<div class="num">7</div>
+<div class="num">30</div>
+<div class="num">39</div>
+<div class="num">48</div>
+<div class="num">65</div>
+
+<div class="num">6</div>
+<div class="num">19</div>
+<div class="num">32</div>
+<div class="num">57</div>
+<div class="num">62</div>
+
 </div>
 
-<div class="hero">
-<h1>MINHA MÃE A CAMPEÃ DE BOXE</h1>
-<p>Assista agora em alta qualidade</p>
-</div>
+<div id="msg">🎉 BINGO! Cartela completa!</div>
 
-<div class="section">
+<script>
 
-<div class="player">
-<iframe
-src="https://www.dailymotion.com/embed/video/x9p9kaa"
-allow="autoplay; fullscreen; picture-in-picture"
-allowfullscreen>
-</iframe>
-</div>
+let nums = document.querySelectorAll(".num");
 
-<a class="btn" href="https://www.dailymotion.com/video/x9p9kaa" target="_blank">
-▶ Assistir no Dailymotion
-</a>
+nums.forEach(n => {
+if(!n.classList.contains("free")){
+n.onclick = () => {
+n.classList.toggle("mark");
+checkWin();
+}
+}
+});
 
-</div>
+function checkWin(){
+let total = document.querySelectorAll(".num").length;
+let marcados = document.querySelectorAll(".mark").length;
 
-<footer>
-© 2026 Streaming Premium — Reprodução via Dailymotion
-</footer>
+if(marcados === total){
+document.getElementById("msg").style.display="block";
+}
+}
+
+</script>
 
 </body>
 </html>
