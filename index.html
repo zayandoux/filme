@@ -3,185 +3,209 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gerador M3U</title>
+<title>Streaming Premium</title>
 
 <style>
-body{
-font-family: Arial, sans-serif;
-background:#0f172a;
-color:white;
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: Arial, sans-serif;
+}
+
+body{
+background:#000;
+color:#fff;
+}
+
+/* NAVBAR */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+background:linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+position:fixed;
+width:100%;
+top:0;
+z-index:10;
+}
+
+.logo{
+font-size:24px;
+font-weight:bold;
+letter-spacing:2px;
+}
+
+.btn-login{
+border:1px solid #fff;
+padding:8px 16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.btn-login:hover{
+background:#fff;
+color:#000;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+background: url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4') center/cover no-repeat;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
 padding:20px;
 }
 
-.container{
-max-width:360px;
-margin:auto;
+.hero h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:18px;
+margin-bottom:20px;
+max-width:500px;
+}
+
+.btn-main{
+background:#fff;
+color:#000;
+padding:12px 24px;
+font-weight:bold;
+cursor:pointer;
+border:none;
+transition:0.3s;
+}
+
+.btn-main:hover{
+background:#ccc;
+}
+
+/* PLANOS */
+.planos{
+padding:80px 20px;
 text-align:center;
 }
 
-h2{
-margin-bottom:15px;
+.planos h2{
+margin-bottom:40px;
+font-size:28px;
 }
 
-input{
-width:85%;
-padding:10px;
-margin-top:8px;
-border:none;
-border-radius:6px;
-font-size:14px;
-display:block;
-margin-left:auto;
-margin-right:auto;
-}
-
-button{
-width:90%;
-padding:12px;
-margin-top:12px;
-border:none;
-border-radius:8px;
-background:#22c55e;
-color:white;
-font-size:15px;
-cursor:pointer;
-}
-
-.server{
-background:#1e293b;
-padding:10px;
-margin-top:10px;
-border-radius:8px;
-font-size:13px;
-word-break:break-all;
-text-align:left;
-}
-
-.actions{
+.cards{
 display:flex;
-align-items:center;
-gap:6px;
-margin-top:6px;
-}
-
-.copy{
-flex:1;
-background:#3b82f6;
-font-size:12px;
-padding:8px;
-}
-
-.copy.copiado{
-background:#22c55e;
-}
-
-.testar{
-width:32px;
-height:32px;
-background:#334155;
-border:none;
-border-radius:6px;
-color:#cbd5f5;
-font-size:16px;
-cursor:pointer;
-display:flex;
-align-items:center;
+flex-wrap:wrap;
 justify-content:center;
-padding:0;
+gap:20px;
 }
 
-.testar:hover{
-background:#475569;
-color:white;
+.card{
+border:1px solid #fff;
+padding:30px;
+width:250px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+background:#111;
+}
+
+.card h3{
+margin-bottom:10px;
+}
+
+.preco{
+font-size:22px;
+margin:15px 0;
+}
+
+.btn-plano{
+border:1px solid #fff;
+padding:10px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.btn-plano:hover{
+background:#fff;
+color:#000;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:20px;
+border-top:1px solid #333;
+margin-top:40px;
+font-size:14px;
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="container">
+<header>
+<div class="logo">SEU LOGO</div>
+<div class="btn-login">Entrar</div>
+</header>
 
-<h2>GERADOR M3U</h2>
+<section class="hero">
+<h1>Filmes, séries e muito mais</h1>
+<p>Assista onde quiser. Cancele quando quiser.</p>
+<button class="btn-main" onclick="scrollToPlanos()">Ver Planos</button>
+</section>
 
-<input id="user" placeholder="Usuário">
-<input id="pass" placeholder="Senha">
+<section class="planos" id="planos">
+<h2>Escolha seu plano</h2>
 
-<button onclick="gerar()">Gerar M3U</button>
+<div class="cards">
 
-<div id="resultado"></div>
+<div class="card">
+<h3>1 Mês</h3>
+<div class="preco">R$ 30,00</div>
+<div class="btn-plano" onclick="comprar('1 mês')">Assinar</div>
+</div>
+
+<div class="card">
+<h3>3 Meses</h3>
+<div class="preco">R$ 75,00</div>
+<div class="btn-plano" onclick="comprar('3 meses')">Assinar</div>
+</div>
+
+<div class="card">
+<h3>6 Meses</h3>
+<div class="preco">R$ 139,90</div>
+<div class="btn-plano" onclick="comprar('6 meses')">Assinar</div>
+</div>
+
+<div class="card">
+<h3>1 Ano</h3>
+<div class="preco">R$ 259,90</div>
+<div class="btn-plano" onclick="comprar('1 ano')">Assinar</div>
+</div>
 
 </div>
+</section>
+
+<footer>
+© 2026 Streaming Premium - Todos os direitos reservados
+</footer>
 
 <script>
-
-const servidores = [
-{nome:"Seven", url:"http://seven.blcplay.com"},
-{nome:"Galaxy", url:"http://wv.ntxv8s.site"},
-{nome:"Sky", url:"http://meuscanais.pro"},
-{nome:"Solar", url:"http://solar.playblc.work"},
-{nome:"Atena", url:"http://alproxy.xyz"},
-{nome:"Explosion", url:"http://explosion.blcplay5.work"},
-{nome:"Fire", url:"http://fire.npremium.fun"},
-{nome:"Lunar", url:"http://lunar.blcplay3.work"},
-{nome:"Speed", url:"http://speed.blcplay2.work"},
-{nome:"Urano", url:"http://urano.playblc.work"},
-{nome:"Andromeda", url:"http://andromeda.playblc.work"},
-{nome:"Venus", url:"http://venus.playblc.work"},
-{nome:"Tita", url:"http://tita.netpl4y.com"},
-{nome:"Olympus", url:"http://olympus.netpl4y.com"}
-];
-
-function gerar(){
-
-let user = document.getElementById("user").value;
-let pass = document.getElementById("pass").value;
-
-let resultado = document.getElementById("resultado");
-resultado.innerHTML = "";
-
-servidores.forEach((s,i)=>{
-
-let link = `${s.url}/get.php?username=${user}&password=${pass}&type=m3u_plus&output=mpegts`;
-
-let div = document.createElement("div");
-div.className = "server";
-
-div.innerHTML = `
-<b>${s.nome}</b><br>
-<span id="link${i}">${link}</span>
-
-<div class="actions">
-<button id="m3u${i}" class="copy">Copiar M3U</button>
-<button id="dns${i}" class="copy">Copiar DNS</button>
-<button class="testar" onclick="testar('${s.url}')">↗</button>
-</div>
-`;
-
-resultado.appendChild(div);
-
-// Copiar M3U
-document.getElementById(`m3u${i}`).addEventListener("click", function(){
-navigator.clipboard.writeText(link);
-this.classList.add("copiado");
-this.innerText = "Copiado";
-});
-
-// Copiar DNS
-document.getElementById(`dns${i}`).addEventListener("click", function(){
-navigator.clipboard.writeText(s.url);
-this.classList.add("copiado");
-this.innerText = "Copiado";
-});
-
-});
-
+function scrollToPlanos(){
+document.getElementById('planos').scrollIntoView({behavior:'smooth'});
 }
 
-function testar(url){
-window.open(url, "_blank");
+function comprar(plano){
+alert("Você escolheu o plano de " + plano);
 }
-
 </script>
 
 </body>
