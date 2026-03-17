@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Streaming Premium</title>
+<title>IPTV Premium</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
@@ -19,55 +19,137 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:20px;
-border-bottom:1px solid #222;
+position:fixed;
+width:100%;
+z-index:10;
+background:rgba(0,0,0,0.7);
 }
 
 .logo{
 font-size:22px;
 font-weight:bold;
-letter-spacing:2px;
 }
 
-.btn{
-border:1px solid #fff;
-padding:8px 16px;
+.menu{
+display:flex;
+gap:20px;
+font-size:14px;
+}
+
+.menu span{
 cursor:pointer;
-transition:0.3s;
+color:#ccc;
 }
 
-.btn:hover{
-background:#fff;
-color:#000;
+.menu span:hover{
+color:#fff;
+}
+
+.btn-top{
+border:1px solid #fff;
+padding:6px 12px;
+cursor:pointer;
 }
 
 /* HERO */
 .hero{
-padding:80px 20px;
+height:100vh;
+background: linear-gradient(rgba(0,0,0,0.7), #000),
+url('https://images.unsplash.com/photo-1606813907291-d86efa9b94db');
+background-size:cover;
+background-position:center;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 text-align:center;
+padding:20px;
 }
 
 .hero h1{
-font-size:34px;
+font-size:42px;
 margin-bottom:10px;
 }
 
-.hero p{
+.hero span{
 color:#aaa;
-margin-bottom:20px;
+}
+
+.hero p{
+color:#ccc;
+max-width:500px;
+margin:10px 0 20px;
 }
 
 .btn-main{
 background:#fff;
 color:#000;
 padding:12px 25px;
+font-weight:bold;
 border:none;
 cursor:pointer;
-font-weight:bold;
+}
+
+/* LOGOS */
+.logos{
+display:flex;
+overflow:auto;
+gap:10px;
+padding:20px;
+background:#111;
+}
+
+.logo-box{
+min-width:100px;
+background:#fff;
+color:#000;
+padding:10px;
+text-align:center;
+border-radius:8px;
+font-size:12px;
+}
+
+/* CONTEÚDO */
+.conteudo{
+padding:40px 20px;
+background:#f5f5f5;
+color:#000;
+text-align:center;
+}
+
+.tabs{
+display:flex;
+justify-content:center;
+gap:10px;
+margin:20px 0;
+}
+
+.tab{
+padding:10px 15px;
+background:#ddd;
+cursor:pointer;
+border-radius:5px;
+}
+
+.filmes{
+display:flex;
+overflow:auto;
+gap:15px;
+padding:20px;
+}
+
+.card{
+min-width:150px;
+height:220px;
+background:#000;
+border-radius:10px;
+background-size:cover;
+background-position:center;
 }
 
 /* PLANOS */
 .planos{
-padding:60px 20px;
+padding:40px 20px;
 text-align:center;
 }
 
@@ -78,66 +160,20 @@ justify-content:center;
 gap:20px;
 }
 
-.card{
-border:1px solid #333;
-padding:25px;
-width:240px;
-transition:0.3s;
-}
-
-.card:hover{
-transform:scale(1.05);
-border-color:#fff;
+.plano{
+border:1px solid #444;
+padding:20px;
+width:220px;
 }
 
 .preco{
-font-size:22px;
+font-size:20px;
 margin:10px 0;
 }
 
-.btn-card{
+.btn-plano{
 border:1px solid #fff;
 padding:10px;
-cursor:pointer;
-margin-top:10px;
-}
-
-/* BENEFICIOS */
-.beneficios{
-padding:60px 20px;
-background:#0a0a0a;
-}
-
-.beneficios h2{
-text-align:center;
-margin-bottom:30px;
-}
-
-.lista{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-}
-
-.item{
-width:220px;
-text-align:center;
-color:#aaa;
-}
-
-/* CTA */
-.cta{
-padding:60px 20px;
-text-align:center;
-}
-
-.cta button{
-background:#fff;
-color:#000;
-padding:12px 30px;
-border:none;
-font-weight:bold;
 cursor:pointer;
 }
 
@@ -154,83 +190,85 @@ font-size:14px;
 <body>
 
 <header>
-<div class="logo">SEU LOGO</div>
-<div class="btn">Entrar</div>
+<div class="logo">SEU IPTV</div>
+
+<div class="menu">
+<span>Início</span>
+<span>Planos</span>
+<span>Suporte</span>
+</div>
+
+<div class="btn-top">Entrar</div>
 </header>
 
 <section class="hero">
-<h1>O melhor do entretenimento em um só lugar</h1>
-<p>Filmes, séries, esportes e muito mais. Sem travamentos.</p>
-<button class="btn-main" onclick="scrollPlanos()">Ver Planos</button>
+<h1>Premium IPTV</h1>
+<span>Experience</span>
+<p>Assista filmes, séries e canais ao vivo com máxima qualidade.</p>
+<button class="btn-main">Teste Grátis</button>
 </section>
 
-<section class="planos" id="planos">
-<h2>Escolha seu plano</h2>
+<div class="logos">
+<div class="logo-box">NETFLIX</div>
+<div class="logo-box">HBO</div>
+<div class="logo-box">DISNEY</div>
+<div class="logo-box">PRIME</div>
+<div class="logo-box">GLOBOPLAY</div>
+</div>
+
+<section class="conteudo">
+<h2>Conteúdos disponíveis</h2>
+
+<div class="tabs">
+<div class="tab">Filmes</div>
+<div class="tab">Séries</div>
+<div class="tab">Esportes</div>
+</div>
+
+<div class="filmes">
+<div class="card" style="background-image:url('https://image.tmdb.org/t/p/w300/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg')"></div>
+<div class="card" style="background-image:url('https://image.tmdb.org/t/p/w300/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg')"></div>
+<div class="card" style="background-image:url('https://image.tmdb.org/t/p/w300/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg')"></div>
+<div class="card" style="background-image:url('https://image.tmdb.org/t/p/w300/rTh4K5uw9HypmpGslcKd4QfHl93.jpg')"></div>
+</div>
+
+</section>
+
+<section class="planos">
+<h2>Planos</h2>
 
 <div class="cards">
 
-<div class="card">
+<div class="plano">
 <h3>1 Mês</h3>
 <div class="preco">R$ 30,00</div>
-<div class="btn-card" onclick="comprar('1 mês')">Assinar</div>
+<div class="btn-plano">Assinar</div>
 </div>
 
-<div class="card">
+<div class="plano">
 <h3>3 Meses</h3>
 <div class="preco">R$ 75,00</div>
-<div class="btn-card" onclick="comprar('3 meses')">Assinar</div>
+<div class="btn-plano">Assinar</div>
 </div>
 
-<div class="card">
+<div class="plano">
 <h3>6 Meses</h3>
 <div class="preco">R$ 139,90</div>
-<div class="btn-card" onclick="comprar('6 meses')">Assinar</div>
+<div class="btn-plano">Assinar</div>
 </div>
 
-<div class="card">
+<div class="plano">
 <h3>1 Ano</h3>
 <div class="preco">R$ 259,90</div>
-<div class="btn-card" onclick="comprar('1 ano')">Assinar</div>
+<div class="btn-plano">Assinar</div>
 </div>
 
 </div>
-</section>
-
-<section class="beneficios">
-<h2>Por que escolher nosso serviço?</h2>
-
-<div class="lista">
-<div class="item">📺 Canais, filmes e séries ilimitados</div>
-<div class="item">⚡ Sem travamentos</div>
-<div class="item">📱 Funciona em qualquer dispositivo</div>
-<div class="item">🕒 Suporte rápido</div>
-</div>
-</section>
-
-<section class="cta">
-<h2>Comece agora mesmo</h2>
-<p>Assine e tenha acesso imediato</p>
-<br>
-<button onclick="whatsapp()">Falar no WhatsApp</button>
 </section>
 
 <footer>
-© 2026 Streaming Premium
+© 2026 IPTV Premium
 </footer>
-
-<script>
-function scrollPlanos(){
-document.getElementById('planos').scrollIntoView({behavior:'smooth'});
-}
-
-function comprar(plano){
-alert("Você escolheu o plano de " + plano);
-}
-
-function whatsapp(){
-window.open("https://wa.me/SEUNUMERO");
-}
-</script>
 
 </body>
 </html>
