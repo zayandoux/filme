@@ -1,274 +1,217 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IPTV Premium</title>
+<title>PDV Sorvetes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+*{touch-action:manipulation;}
+button,span{-webkit-user-select:none;-webkit-touch-callout:none;}
 
 body{
-background:#000;
-color:#fff;
+font-family:Arial;background:#f2f2f7;padding:10px;max-width:480px;margin:auto;
 }
-
-/* HEADER */
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px;
-position:fixed;
-width:100%;
-z-index:10;
-background:rgba(0,0,0,0.7);
+h1{text-align:center;font-size:26px;font-weight:900;}
+.cat-btn{
+width:100%;padding:14px;margin-top:10px;font-size:18px;
+border:none;border-radius:12px;background:#007aff;color:white;font-weight:800;
+position:sticky;top:10px;z-index:10;
 }
+.cat-btn.ativo{background:#34c759;}
+.categoria{display:none;background:white;padding:10px;border-radius:12px;}
+.item{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding:10px;background:#f9f9f9;border-radius:10px;}
+.nome{font-weight:800;}
+.valor{color:#007aff;font-weight:700;}
+.btn{width:34px;height:34px;border:none;border-radius:8px;font-size:22px;font-weight:900;}
+.resumo{margin-top:15px;background:white;padding:15px;border-radius:12px;font-size:18px;font-weight:800;}
+#pedido{margin-top:10px;font-size:14px;}
+#pedido div{display:flex;justify-content:space-between;}
 
-.logo{
-font-size:22px;
-font-weight:bold;
-}
-
-.menu{
-display:flex;
-gap:20px;
+#limpar{
+width:50%;
+display:block;
+margin:12px auto;
+padding:10px;
 font-size:14px;
-}
-
-.menu span{
-cursor:pointer;
-color:#ccc;
-}
-
-.menu span:hover{
-color:#fff;
-}
-
-.btn-top{
-border:1px solid #fff;
-padding:6px 12px;
-cursor:pointer;
-}
-
-/* HERO */
-.hero{
-height:100vh;
-background: linear-gradient(rgba(0,0,0,0.7), #000),
-url('https://images.unsplash.com/photo-1606813907291-d86efa9b94db');
-background-size:cover;
-background-position:center;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
-}
-
-.hero h1{
-font-size:42px;
-margin-bottom:10px;
-}
-
-.hero span{
-color:#aaa;
-}
-
-.hero p{
-color:#ccc;
-max-width:500px;
-margin:10px 0 20px;
-}
-
-.btn-main{
-background:#fff;
-color:#000;
-padding:12px 25px;
-font-weight:bold;
+background:#ff3b30;
+color:white;
 border:none;
-cursor:pointer;
-}
-
-/* LOGOS */
-.logos{
-display:flex;
-overflow:auto;
-gap:10px;
-padding:20px;
-background:#111;
-}
-
-.logo-box{
-min-width:100px;
-background:#fff;
-color:#000;
-padding:10px;
-text-align:center;
-border-radius:8px;
-font-size:12px;
-}
-
-/* CONTEÚDO */
-.conteudo{
-padding:40px 20px;
-background:#f5f5f5;
-color:#000;
-text-align:center;
-}
-
-.tabs{
-display:flex;
-justify-content:center;
-gap:10px;
-margin:20px 0;
-}
-
-.tab{
-padding:10px 15px;
-background:#ddd;
-cursor:pointer;
-border-radius:5px;
-}
-
-.filmes{
-display:flex;
-overflow:auto;
-gap:15px;
-padding:20px;
-}
-
-.card{
-min-width:150px;
-height:220px;
-background:#000;
 border-radius:10px;
-background-size:cover;
-background-position:center;
+font-weight:700;
 }
 
-/* PLANOS */
-.planos{
-padding:40px 20px;
-text-align:center;
+#popup{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,.8);display:none;justify-content:center;align-items:center;
+z-index:100;
 }
-
-.cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
+#popupBox{
+background:white;padding:20px;border-radius:20px;text-align:center;
 }
-
-.plano{
-border:1px solid #444;
-padding:20px;
-width:220px;
-}
-
-.preco{
-font-size:20px;
-margin:10px 0;
-}
-
-.btn-plano{
-border:1px solid #fff;
-padding:10px;
-cursor:pointer;
-}
-
-/* FOOTER */
-footer{
-text-align:center;
-padding:20px;
-border-top:1px solid #222;
-font-size:14px;
-}
+#popupBox img{width:280px;}
+#fechar{margin-top:10px;padding:12px 20px;font-size:18px;border:none;border-radius:10px;background:#ff3b30;color:white;}
 </style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">TV ON+</div>
+<h1>📋 PEDIDOS</h1>
+<div id="conteudo"></div>
 
-<div class="menu">
-<span>Início</span>
-<span>Planos</span>
-<span>Suporte</span>
+<div class="resumo">
+Total: R$ <span id="total">0.00</span>
+
+<div style="margin-top:10px;">
+Gastos: R$ 
+<input id="gastos" type="number" step="0.01" value="0" 
+style="width:100px;padding:5px;font-size:16px;border-radius:8px;border:1px solid #ccc;"
+oninput="calc()">
 </div>
 
-<div class="btn-top">Entrar</div>
-</header>
-
-<section class="hero">
-<h1>Premium IPTV</h1>
-<span>Experience</span>
-<p>Assista filmes, séries e canais ao vivo com máxima qualidade.</p>
-<button class="btn-main">Teste Grátis</button>
-</section>
-
-<div class="logos">
-<div class="logo-box">NETFLIX</div>
-<div class="logo-box">HBO</div>
-<div class="logo-box">DISNEY</div>
-<div class="logo-box">PRIME</div>
-<div class="logo-box">GLOBOPLAY</div>
+<div style="margin-top:5px;">
+Comissão (25%): R$ <span id="comissao">0.00</span>
 </div>
 
-<section class="conteudo">
-<h2>Conteúdos disponíveis</h2>
-
-<div class="tabs">
-<div class="tab">Filmes</div>
-<div class="tab">Séries</div>
-<div class="tab">Esportes</div>
+<div style="margin-top:5px;">
+Lucro: R$ <span id="final">0.00</span>
 </div>
 
-<div class="filmes">
-<div class="card" style="background-image:url('https://image.tmdb.org/t/p/w300/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg')"></div>
-<div class="card" style="background-image:url('https://image.tmdb.org/t/p/w300/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg')"></div>
-<div class="card" style="background-image:url('https://image.tmdb.org/t/p/w300/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg')"></div>
-<div class="card" style="background-image:url('https://image.tmdb.org/t/p/w300/rTh4K5uw9HypmpGslcKd4QfHl93.jpg')"></div>
+<button onclick="gerarPix()" style="width:100%;margin-top:10px;padding:18px;font-size:22px;background:#00e676;border:none;border-radius:12px;font-weight:900">💳 GERAR PIX</button>
+
+<button id="limpar" onclick="limparTudo()">Novo pedido</button>
+
+<div id="pedido"></div>
 </div>
 
-</section>
-
-<section class="planos">
-<h2>Planos</h2>
-
-<div class="cards">
-
-<div class="plano">
-<h3>1 Mês</h3>
-<div class="preco">R$ 30,00</div>
-<div class="btn-plano">Assinar</div>
+<div id="popup">
+<div id="popupBox">
+<h2>Valor: R$ <span id="valorPix"></span></h2>
+<div id="qr"></div>
+<button id="fechar" onclick="fechar()">Fechar</button>
+</div>
 </div>
 
-<div class="plano">
-<h3>3 Meses</h3>
-<div class="preco">R$ 75,00</div>
-<div class="btn-plano">Assinar</div>
-</div>
+<script>
+let precoCat={FRUTARE:10,FRUTILLY:7.5};
+let precos={
+"Clássico":22.50,"Branco":22.50,"Avelã":22.50,"Amêndoas":22.50,"Cookies & Cream":22.50,"Menos Açúcar":22.50,"Pistache":22.50,
+"Choco Mix":14.50,"Chocante":14.50,"Uni Cornetto":17.5,"M&Ms":17.5,"Brigadeiro Cornetto":17.5,
+"Mini Eski-bon":18.50,"Mini Morango":18.50,"Mini Chicabon":18.50,"Mini Doce de Leite":18.50,
+"Eski-bon":13.50,"Brigadeiro":13,"Chicabon":13,"Chicabon Menos Açúcar":13,"3 Chocolates":13,"Max Avelã":13,"Tablito":13,
+"Expecto":10,"Grifinória":11,"Sonserina":11
+};
+let categorias={
+"MAGNUM":["Clássico","Branco","Avelã","Amêndoas","Cookies & Cream","Menos Açúcar","Pistache"],
+"CORNETTO":["Choco Mix","Chocante","Uni Cornetto","M&Ms","Brigadeiro Cornetto"],
+"OS FAVORITOS":["Mini Eski-bon","Mini Morango","Mini Chicabon","Mini Doce de Leite","Eski-bon","Brigadeiro","Chicabon","Chicabon Menos Açúcar","3 Chocolates","Max Avelã","Tablito"],
+"FRUTARE":["Tangerina","Limão","Morango","Abacaxi","Uva","Coco"],
+"FRUTILLY":["Frutilly","Frutilly Pinta Língua"],
+"HARRY POTTER":["Expecto","Grifinória","Sonserina"]
+};
 
-<div class="plano">
-<h3>6 Meses</h3>
-<div class="preco">R$ 139,90</div>
-<div class="btn-plano">Assinar</div>
-</div>
+let id=1,total=0,aberta=null;
 
-<div class="plano">
-<h3>1 Ano</h3>
-<div class="preco">R$ 259,90</div>
-<div class="btn-plano">Assinar</div>
-</div>
+for(let c in categorias){
+conteudo.innerHTML+=`<button class="cat-btn" id="btn_${c}" onclick="toggle('${c}')">${c}</button><div id="cat_${c}" class="categoria"></div>`;
+categorias[c].forEach(s=>{
+let p=precoCat[c]??precos[s];
+document.getElementById("cat_"+c).innerHTML+=`
+<div class="item">
+<div><div class="nome">${s}</div><div class="valor">R$ ${p.toFixed(2)}</div></div>
+<div><button class="btn" onclick="rem(${id})">-</button> <span id="q_${id}">0</span> <button class="btn" onclick="add(${id})">+</button></div>
+</div>`;id++;
+});
+}
 
-</div>
-</section>
+function toggle(c){
+document.querySelectorAll(".categoria").forEach(e=>e.style.display="none");
+document.querySelectorAll(".cat-btn").forEach(b=>b.classList.remove("ativo"));
+if(aberta!==c){
+document.getElementById("cat_"+c).style.display="block";
+document.getElementById("btn_"+c).classList.add("ativo");
+aberta=c;
+}else aberta=null;
+}
 
-<footer>
-© 2026 IPTV Premium
-</footer>
+function add(i){q("q_"+i).innerText++;calc();}
+function rem(i){let e=q("q_"+i);if(e.innerText>0)e.innerText--;calc();}
+function q(id){return document.getElementById(id);}
+
+function calc(){
+let i=1;
+total=0;
+let resumo={};
+
+for(let c in categorias){
+categorias[c].forEach(s=>{
+let p=precoCat[c]??precos[s];
+let qtd=parseInt(q("q_"+i).innerText);
+
+if(qtd>0) resumo[s]={qtd,sub:(qtd*p)};
+total+=qtd*p;
+i++;
+});
+}
+
+q("total").innerText=total.toFixed(2);
+
+let txt="";
+for(let k in resumo){
+txt+=`<div><span>${resumo[k].qtd}x ${k}</span><span>R$ ${resumo[k].sub.toFixed(2)}</span></div>`;
+}
+q("pedido").innerHTML=txt;
+
+// NOVO
+let gastos = parseFloat(q("gastos").value) || 0;
+let comissao = total * 0.25;
+let final = comissao - gastos;
+
+if(final < 0) final = 0;
+
+q("comissao").innerText = comissao.toFixed(2);
+q("final").innerText = final.toFixed(2);
+}
+
+const pixBase="00020101021126330014br.gov.bcb.pix0111377793998695204000053039865802BR5925ZAYAN DOUX DE SOUZA OLIVE6009SAO PAULO622905251KHPGDNVGBS01VTEG5JDK7R2S6304";
+
+function gerarPix(){
+if(total<=0){alert("Selecione itens");return;}
+let valor=total.toFixed(2);
+let tam=valor.length.toString().padStart(2,"0");
+let payload=pixBase.replace("5802BR","54"+tam+valor+"5802BR");
+let crc=crc16(payload);
+let pix=payload+crc;
+q("valorPix").innerText=valor;
+q("qr").innerHTML="<img src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="+encodeURIComponent(pix)+"'>";
+q("popup").style.display="flex";
+}
+
+function fechar(){q("popup").style.display="none";}
+
+function limparTudo(){
+if(!confirm("Deseja apagar este pedido e iniciar um novo?")) return;
+document.querySelectorAll("[id^='q_']").forEach(e=>e.innerText="0");
+q("total").innerText="0.00";
+q("pedido").innerHTML="";
+q("qr").innerHTML="";
+q("gastos").value="0";
+q("comissao").innerText="0.00";
+q("final").innerText="0.00";
+fechar();
+}
+
+function crc16(s){
+let crc=0xFFFF;
+for(let i=0;i<s.length;i++){
+crc^=s.charCodeAt(i)<<8;
+for(let j=0;j<8;j++){
+crc=(crc&0x8000)?(crc<<1)^0x1021:crc<<1;
+crc&=0xFFFF;
+}}
+return crc.toString(16).toUpperCase().padStart(4,"0");
+}
+</script>
 
 </body>
 </html>
