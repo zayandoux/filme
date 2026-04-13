@@ -12,14 +12,21 @@ body {
     font-family: Arial, sans-serif;
     background: linear-gradient(180deg, #ffd6e7, #ffc0cb);
     animation: fadeIn 0.8s ease;
+
+    /* ZOOM 300% */
+    transform: scale(3);
+    transform-origin: top left;
+    width: 33.33%;
 }
 
 * {
     box-sizing: border-box;
 }
 
-.container {
-    padding: 15px;
+/* FONTE PERSONALIZADA */
+@font-face {
+    font-family: 'AZ Cupcakes';
+    src: url('AZCupcakesBold.ttf');
 }
 
 /* ANIMAÇÃO */
@@ -28,23 +35,23 @@ body {
     to {opacity: 1;}
 }
 
+.container {
+    padding: 15px;
+}
+
 /* TOPO */
 .topo {
     text-align: center;
     margin-bottom: 10px;
 }
 
-.logo-placeholder {
-    width: 120px;
-    height: 120px;
+.logo {
+    width: 320px;
+    height: 320px;
     border-radius: 50%;
-    background: white;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ff4d88;
-    font-weight: bold;
+    object-fit: cover;
+    background: transparent;
+    padding: 0;
 }
 
 /* PRODUTOS */
@@ -56,6 +63,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: 'AZ Cupcakes', Arial, sans-serif;
+    color: #5a2e1b;
 }
 
 /* CONTROLES */
@@ -143,12 +152,20 @@ button {
 <div class="container">
 
 <div class="topo">
-<div class="logo-placeholder">LOGO</div>
+    <img src="logo.png" alt="Logo" class="logo">
 </div>
 
 <h2>🍿 Monte seu pedido</h2>
 
-<!-- PRODUTOS -->
+<div class="produto">
+Pipoca Ninho + Nutella (MINI) - 16,90
+<div class="controls">
+<button onclick="alterar('p0', -1)">-</button>
+<span id="p0">0</span>
+<button onclick="alterar('p0', 1)">+</button>
+</div>
+</div>
+
 <div class="produto">
 Pipoca Ninho (P) - 24,90
 <div class="controls">
@@ -237,6 +254,7 @@ Pipoca Ninho + Nutella (G) - 52,90
 
 <script>
 const precos = {
+p0: 16.9,
 p1: 24.9,
 p2: 26.9,
 p3: 29.9,
@@ -321,6 +339,7 @@ function add(nome, qtd){
     }
 }
 
+add("Pipoca Ninho + Nutella (MINI)", document.getElementById("p0").innerText);
 add("Pipoca Ninho (P)", document.getElementById("p1").innerText);
 add("Pipoca Ninho + Nutella (P)", document.getElementById("p2").innerText);
 add("Pipoca Ninho (M)", document.getElementById("p3").innerText);
@@ -338,18 +357,18 @@ let total = document.getElementById("total").innerText;
 let msgTroco = "";
 if(pagamento === "Dinheiro"){
     if(semTroco){
-        msgTroco = "%0A💰 Sem troco";
+        msgTroco = "%0A Sem troco";
     } else if(troco){
-        msgTroco = `%0A💰 Troco para: R$ ${troco}`;
+        msgTroco = `%0A Troco para: R$ ${troco}`;
     }
 }
 
-let mensagem = `*NOVO PEDIDO* 🍿%0A%0A` +
-`🛒 Pedido:%0A${produtos}%0A%0A` +
+let mensagem = `*NOVO PEDIDO* %0A%0A` +
+`Pedido:%0A${produtos}%0A%0A` +
 `${total}%0A%0A` +
-`👤 Nome: ${nome}%0A%0A` +
-`📍 Endereço:%0A${rua}, ${numero} ${complemento}%0A${referencia}%0A%0A` +
-`💳 Pagamento: ${pagamento}${msgTroco}`;
+`Nome: ${nome}%0A%0A` +
+`Endereço:%0A${rua}, ${numero} ${complemento}%0A${referencia}%0A%0A` +
+`Pagamento: ${pagamento}${msgTroco}`;
 
 let url = `https://wa.me/5512981899366?text=${mensagem}`;
 
