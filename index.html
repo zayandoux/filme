@@ -10,21 +10,28 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #ffd6e7, #ffc0cb);
+    background: url('fundo.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
     animation: fadeIn 0.8s ease;
+    touch-action: manipulation;
 }
 
-/* ANIMAÇÃO GERAL */
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+* {
+    box-sizing: border-box;
 }
 
 .container {
     padding: 15px;
 }
 
-/* TOPO (LOGO FUTURO) */
+/* ANIMAÇÃO */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* TOPO */
 .topo {
     text-align: center;
     margin-bottom: 10px;
@@ -34,7 +41,7 @@ body {
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background: #fff;
+    background: white;
     margin: auto;
     display: flex;
     align-items: center;
@@ -52,36 +59,33 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    animation: subir 0.4s ease;
 }
 
-@keyframes subir {
-    from {transform: translateY(20px); opacity: 0;}
-    to {transform: translateY(0); opacity: 1;}
-}
-
+/* CONTROLES */
 .controls {
     display: flex;
     align-items: center;
+    gap: 8px;
 }
 
 .controls button {
     background: #ff4d88;
     border: none;
     color: white;
-    font-size: 18px;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
 }
 
 .controls button:active {
-    transform: scale(1.2);
+    transform: scale(1.15);
 }
 
 .controls span {
-    margin: 0 10px;
     font-size: 16px;
 }
 
@@ -92,6 +96,7 @@ input, select {
     margin: 8px 0;
     border-radius: 10px;
     border: 1px solid #ccc;
+    font-size: 16px;
 }
 
 /* TOTAL */
@@ -101,7 +106,7 @@ input, select {
     text-align: center;
     margin: 15px 0;
     color: #b03060;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 /* TROCO */
@@ -128,13 +133,6 @@ button {
 .enviar {
     background: #ff4d88;
     color: white;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% {transform: scale(1);}
-    50% {transform: scale(1.03);}
-    100% {transform: scale(1);}
 }
 
 .limpar {
@@ -215,6 +213,7 @@ Pipoca Ninho + Nutella (G) - 52,90
 <input type="text" id="nome" placeholder="Seu nome *">
 <input type="text" id="rua" placeholder="Rua *">
 <input type="number" id="numero" placeholder="Número *">
+<input type="text" id="complemento" placeholder="Complemento">
 <input type="text" id="referencia" placeholder="Ponto de referência (opcional)">
 
 <h3>Pagamento</h3>
@@ -229,7 +228,7 @@ Pipoca Ninho + Nutella (G) - 52,90
 
 <div id="trocoDiv" style="display:none;">
 <div class="linha-troco">
-<input type="text" id="troco" placeholder="Troco para">
+<input type="number" id="troco" placeholder="Troco para">
 <label><input type="checkbox" id="semTroco" onclick="toggleTroco()"> Sem troco</label>
 </div>
 </div>
@@ -287,6 +286,16 @@ function limparPedido(){
         for(let id in precos){
             document.getElementById(id).innerText = 0;
         }
+        document.getElementById("nome").value = "";
+        document.getElementById("rua").value = "";
+        document.getElementById("numero").value = "";
+        document.getElementById("complemento").value = "";
+        document.getElementById("referencia").value = "";
+        document.getElementById("pagamento").value = "";
+        document.getElementById("troco").value = "";
+        document.getElementById("semTroco").checked = false;
+        document.getElementById("troco").disabled = false;
+        document.getElementById("trocoDiv").style.display = "none";
         atualizarTotal();
     }
 }
@@ -296,8 +305,11 @@ function enviarPedido(){
 let nome = document.getElementById("nome").value;
 let rua = document.getElementById("rua").value;
 let numero = document.getElementById("numero").value;
+let complemento = document.getElementById("complemento").value;
 let referencia = document.getElementById("referencia").value;
 let pagamento = document.getElementById("pagamento").value;
+let troco = document.getElementById("troco").value;
+let semTroco = document.getElementById("semTroco").checked;
 
 if (!nome || !rua || !numero || !pagamento) {
     alert("Preencha os campos obrigatórios!");
@@ -319,9 +331,30 @@ add("Pipoca Ninho + Nutella (M)", document.getElementById("p4").innerText);
 add("Pipoca Ninho (G)", document.getElementById("p5").innerText);
 add("Pipoca Ninho + Nutella (G)", document.getElementById("p6").innerText);
 
+if(produtos === ""){
+    alert("Escolha pelo menos 1 produto!");
+    return;
+}
+
 let total = document.getElementById("total").innerText;
 
-let url = `https://wa.me/5512981899366?text=*Pedido*%0A${produtos}%0A${total}%0ANome:${nome}%0ARua:${rua},${numero}%0ARef:${referencia}%0APagamento:${pagamento}`;
+let msgTroco = "";
+if(pagamento === "Dinheiro"){
+    if(semTroco){
+        msgTroco = "%0A💰 Sem troco";
+    } else if(troco){
+        msgTroco = `%0A💰 Troco para: R$ ${troco}`;
+    }
+}
+
+let mensagem = `*NOVO PEDIDO* 🍿%0A%0A` +
+`🛒 Pedido:%0A${produtos}%0A%0A` +
+`${total}%0A%0A` +
+`👤 Nome: ${nome}%0A%0A` +
+`📍 Endereço:%0A${rua}, ${numero} ${complemento}%0A${referencia}%0A%0A` +
+`💳 Pagamento: ${pagamento}${msgTroco}`;
+
+let url = `https://wa.me/5512981899366?text=${mensagem}`;
 
 window.open(url, "_blank");
 }
