@@ -2,23 +2,18 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Doce Pipoca - Pedido</title>
 
 <style>
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #f8c8dc, #ffd6e7);
-    padding: 20px;
-    color: #5a2a3b;
+    background: linear-gradient(180deg, #ffd6e7, #ffc0cb);
 }
 
 .container {
-    max-width: 500px;
-    margin: auto;
-    background: #fff0f5;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 15px;
 }
 
 h1 {
@@ -26,38 +21,57 @@ h1 {
     color: #b03060;
 }
 
-label {
-    font-weight: bold;
+.produto {
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info {
+    font-size: 14px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+.controls button {
+    background: #ff4d88;
+    border: none;
+    color: white;
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.controls span {
+    margin: 0 10px;
+    font-size: 16px;
 }
 
 input, select {
     width: 100%;
-    padding: 8px;
-    margin: 5px 0 15px;
-    border-radius: 8px;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 10px;
     border: 1px solid #ccc;
 }
 
-.produto {
-    background: #ffe4ec;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-button {
+button.enviar {
     width: 100%;
     padding: 15px;
     background: #ff4d88;
     color: white;
     border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #e04379;
+    border-radius: 12px;
+    font-size: 18px;
+    margin-top: 10px;
 }
 </style>
 </head>
@@ -65,72 +79,113 @@ button:hover {
 <body>
 
 <div class="container">
-<h1>🍿 Doce Pipoca</h1>
 
-<label>Nome *</label>
-<input type="text" id="nome" required>
+<h1>🍿 Doce Pipoca</h1>
 
 <h3>Escolha seus produtos</h3>
 
 <div class="produto">
-<label>Pipoca Ninho (P) - R$24,90</label>
-<input type="number" id="p1" min="0" value="0">
+<div class="info">Pipoca Ninho (P) - R$24,90</div>
+<div class="controls">
+<button onclick="alterar('p1', -1)">-</button>
+<span id="p1">0</span>
+<button onclick="alterar('p1', 1)">+</button>
+</div>
 </div>
 
 <div class="produto">
-<label>Pipoca Ninho + Nutella (P) - R$26,90</label>
-<input type="number" id="p2" min="0" value="0">
+<div class="info">Pipoca Ninho + Nutella (P) - R$26,90</div>
+<div class="controls">
+<button onclick="alterar('p2', -1)">-</button>
+<span id="p2">0</span>
+<button onclick="alterar('p2', 1)">+</button>
+</div>
 </div>
 
 <div class="produto">
-<label>Pipoca Ninho (M) - R$29,90</label>
-<input type="number" id="p3" min="0" value="0">
+<div class="info">Pipoca Ninho (M) - R$29,90</div>
+<div class="controls">
+<button onclick="alterar('p3', -1)">-</button>
+<span id="p3">0</span>
+<button onclick="alterar('p3', 1)">+</button>
+</div>
 </div>
 
 <div class="produto">
-<label>Pipoca Ninho + Nutella (M) - R$34,90</label>
-<input type="number" id="p4" min="0" value="0">
+<div class="info">Pipoca Ninho + Nutella (M) - R$34,90</div>
+<div class="controls">
+<button onclick="alterar('p4', -1)">-</button>
+<span id="p4">0</span>
+<button onclick="alterar('p4', 1)">+</button>
+</div>
 </div>
 
 <div class="produto">
-<label>Pipoca Ninho (G) - R$47,90</label>
-<input type="number" id="p5" min="0" value="0">
+<div class="info">Pipoca Ninho (G) - R$47,90</div>
+<div class="controls">
+<button onclick="alterar('p5', -1)">-</button>
+<span id="p5">0</span>
+<button onclick="alterar('p5', 1)">+</button>
+</div>
 </div>
 
 <div class="produto">
-<label>Pipoca Ninho + Nutella (G) - R$52,90</label>
-<input type="number" id="p6" min="0" value="0">
+<div class="info">Pipoca Ninho + Nutella (G) - R$52,90</div>
+<div class="controls">
+<button onclick="alterar('p6', -1)">-</button>
+<span id="p6">0</span>
+<button onclick="alterar('p6', 1)">+</button>
+</div>
 </div>
 
-<h3>Endereço</h3>
+<h3>Seus dados</h3>
 
-<label>Rua *</label>
-<input type="text" id="rua">
+<input type="text" id="nome" placeholder="Seu nome *">
 
-<label>Número *</label>
-<input type="text" id="numero">
+<input type="text" id="rua" placeholder="Rua *">
+<input type="text" id="numero" placeholder="Número *">
+<input type="text" id="complemento" placeholder="Complemento">
+<input type="text" id="referencia" placeholder="Ponto de referência (opcional)">
 
-<label>Complemento</label>
-<input type="text" id="complemento">
+<h3>Pagamento</h3>
 
-<label>Ponto de referência (opcional)</label>
-<input type="text" id="referencia">
-
-<h3>Pagamento *</h3>
-
-<select id="pagamento">
-<option value="">Selecione</option>
+<select id="pagamento" onchange="verificarPagamento()">
+<option value="">Selecione *</option>
 <option>Débito</option>
 <option>Crédito</option>
 <option>Vale alimentação</option>
+<option>Dinheiro</option>
 </select>
 
-<button onclick="enviarPedido()">Enviar Pedido</button>
+<div id="trocoDiv" style="display:none;">
+<input type="text" id="troco" placeholder="Troco para quanto?">
+</div>
+
+<button class="enviar" onclick="enviarPedido()">Enviar Pedido</button>
 
 </div>
 
 <script>
-function enviarPedido() {
+function alterar(id, valor){
+    let el = document.getElementById(id);
+    let atual = parseInt(el.innerText);
+    atual += valor;
+    if(atual < 0) atual = 0;
+    el.innerText = atual;
+}
+
+function verificarPagamento(){
+    let pag = document.getElementById("pagamento").value;
+    let trocoDiv = document.getElementById("trocoDiv");
+
+    if(pag === "Dinheiro"){
+        trocoDiv.style.display = "block";
+    } else {
+        trocoDiv.style.display = "none";
+    }
+}
+
+function enviarPedido(){
 
 let nome = document.getElementById("nome").value;
 let rua = document.getElementById("rua").value;
@@ -138,9 +193,10 @@ let numero = document.getElementById("numero").value;
 let complemento = document.getElementById("complemento").value;
 let referencia = document.getElementById("referencia").value;
 let pagamento = document.getElementById("pagamento").value;
+let troco = document.getElementById("troco").value;
 
 if (!nome || !rua || !numero || !pagamento) {
-    alert("Preencha todos os campos obrigatórios!");
+    alert("Preencha os campos obrigatórios!");
     return;
 }
 
@@ -152,23 +208,28 @@ function add(nome, qtd){
     }
 }
 
-add("Pipoca Ninho (P)", document.getElementById("p1").value);
-add("Pipoca Ninho + Nutella (P)", document.getElementById("p2").value);
-add("Pipoca Ninho (M)", document.getElementById("p3").value);
-add("Pipoca Ninho + Nutella (M)", document.getElementById("p4").value);
-add("Pipoca Ninho (G)", document.getElementById("p5").value);
-add("Pipoca Ninho + Nutella (G)", document.getElementById("p6").value);
+add("Pipoca Ninho (P)", document.getElementById("p1").innerText);
+add("Pipoca Ninho + Nutella (P)", document.getElementById("p2").innerText);
+add("Pipoca Ninho (M)", document.getElementById("p3").innerText);
+add("Pipoca Ninho + Nutella (M)", document.getElementById("p4").innerText);
+add("Pipoca Ninho (G)", document.getElementById("p5").innerText);
+add("Pipoca Ninho + Nutella (G)", document.getElementById("p6").innerText);
 
 if(produtos === ""){
-    alert("Selecione pelo menos 1 produto!");
+    alert("Escolha pelo menos 1 produto!");
     return;
 }
 
+let msgTroco = "";
+if(pagamento === "Dinheiro" && troco){
+    msgTroco = `%0A💰 Troco para: R$ ${troco}`;
+}
+
 let mensagem = `*NOVO PEDIDO* 🍿%0A%0A` +
-`👤 Nome: ${nome}%0A%0A` +
 `🛒 Pedido:%0A${produtos}%0A` +
+`👤 Nome: ${nome}%0A%0A` +
 `📍 Endereço:%0A${rua}, ${numero}%0A${complemento}%0A${referencia}%0A%0A` +
-`💳 Pagamento: ${pagamento}`;
+`💳 Pagamento: ${pagamento}${msgTroco}`;
 
 let telefone = "5512981899366";
 
