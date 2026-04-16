@@ -13,46 +13,60 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 
-    /* base rosa */
-    background: radial-gradient(circle at top, #ffd1e8 0%, #ff7fb0 40%, #ff4d88 100%);
+    background: radial-gradient(circle at top,
+        #ffd1e8 0%,
+        #ff7fb0 45%,
+        #ff4d88 100%
+    );
 
     overflow-x: hidden;
 }
 
-/* brilho flutuante */
+/* brilho suave geral */
 body::before {
     content: "";
     position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    inset: 0;
 
     background: radial-gradient(circle,
-        rgba(255,255,255,0.25) 0%,
-        rgba(255,255,255,0.05) 30%,
+        rgba(255,255,255,0.18) 0%,
+        rgba(255,255,255,0.05) 40%,
         transparent 70%
     );
 
-    animation: brilho 8s ease-in-out infinite;
+    animation: glowMove 10s ease-in-out infinite;
     pointer-events: none;
 }
 
-@keyframes brilho {
-    0% {
-        transform: translate(0,0) scale(1);
-        opacity: 0.6;
-    }
-    50% {
-        transform: translate(10px,-10px) scale(1.05);
-        opacity: 0.9;
-    }
-    100% {
-        transform: translate(0,0) scale(1);
-        opacity: 0.6;
-    }
+/* glitter (pontinhos brilhando) */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px);
+
+    background-size: 60px 60px, 90px 90px;
+    background-position: 0 0, 30px 30px;
+
+    opacity: 0.25;
+    animation: glitterMove 20s linear infinite;
+
+    pointer-events: none;
 }
 
+@keyframes glowMove {
+    0% { transform: translate(0,0) scale(1); opacity: 0.5; }
+    50% { transform: translate(15px,-10px) scale(1.05); opacity: 0.9; }
+    100% { transform: translate(0,0) scale(1); opacity: 0.5; }
+}
+
+@keyframes glitterMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(-200px); }
+}
 .container {
     padding: 15px;
     max-width: 500px;
@@ -103,15 +117,21 @@ button {
 
 /* CARD */
 .card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(4px);
+    background: rgba(255, 255, 255, 0.18); /* transparência */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
     border-radius: 25px;
+
     padding: 30px 15px 15px;
     margin-top: 60px;
-    border: 6px solid #b85c6b;
-    position: relative;
-}
 
+    border: 1px solid rgba(255, 255, 255, 0.35);
+
+    position: relative;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
 /* SELO */
 .selo {
     position: absolute;
