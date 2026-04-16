@@ -13,49 +13,63 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 
+    /* 🌸 rosa mais claro */
     background: radial-gradient(circle at top,
-        #ffd1e8 0%,
-        #ff7fb0 45%,
-        #ff4d88 100%
+        #ffe6f2 0%,
+        #ffb3d6 45%,
+        #ff5c9a 100%
     );
 
     overflow-x: hidden;
 }
 
-/* brilho suave geral */
+/* ✨ brilho principal mais forte */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
 
     background: radial-gradient(circle,
-        rgba(255,255,255,0.18) 0%,
-        rgba(255,255,255,0.05) 40%,
+        rgba(255,255,255,0.35) 0%,
+        rgba(255,255,255,0.12) 35%,
         transparent 70%
     );
 
-    animation: glowMove 10s ease-in-out infinite;
+    animation: glowMove 8s ease-in-out infinite;
     pointer-events: none;
 }
 
-/* glitter (pontinhos brilhando) */
+/* ✨ glitter MAIS visível */
 body::after {
     content: "";
     position: fixed;
     inset: 0;
 
     background-image:
-        radial-gradient(white 1px, transparent 1px),
-        radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px);
+        radial-gradient(rgba(255,255,255,0.9) 1.2px, transparent 1.2px),
+        radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px);
 
-    background-size: 60px 60px, 90px 90px;
-    background-position: 0 0, 30px 30px;
+    background-size: 45px 45px, 80px 80px;
+    background-position: 0 0, 25px 25px;
 
-    opacity: 0.25;
-    animation: glitterMove 20s linear infinite;
+    opacity: 0.45;
+    animation: glitterMove 18s linear infinite;
 
     pointer-events: none;
 }
+
+/* movimento do brilho */
+@keyframes glowMove {
+    0% { transform: translate(0,0) scale(1); opacity: 0.6; }
+    50% { transform: translate(20px,-15px) scale(1.08); opacity: 1; }
+    100% { transform: translate(0,0) scale(1); opacity: 0.6; }
+}
+
+/* movimento do glitter */
+@keyframes glitterMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(-250px); }
+}}
 
 @keyframes glowMove {
     0% { transform: translate(0,0) scale(1); opacity: 0.5; }
@@ -65,7 +79,7 @@ body::after {
 
 @keyframes glitterMove {
     from { transform: translateY(0); }
-    to { transform: translateY(-200px); }
+    to { transform: translateY(-1000px); }
 }
 .container {
     padding: 15px;
@@ -117,22 +131,26 @@ button {
 
 /* CARD */
 .card {
-    background: rgba(255, 255, 255, 0.18); /* transparência */
+    background: rgba(255, 255, 255, 0.18);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 
     border-radius: 25px;
-
     padding: 30px 15px 15px;
     margin-top: 60px;
-
-    border: 1px solid rgba(255, 255, 255, 0.35);
 
     position: relative;
 
     box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
-/* SELO */
+
+/* 🌸 BORDA SÓ PARA O CARD DE VIDRO */
+.card.glass {
+    border: 2px solid rgba(255, 77, 136, 0.55);
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.12),
+        0 0 15px rgba(255, 77, 136, 0.25);
+}/* SELO */
 .selo {
     position: absolute;
     top: 0;
