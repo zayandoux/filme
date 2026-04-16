@@ -400,26 +400,51 @@ function enviarPedido() {
     let nome = document.getElementById("nome").value;
     let rua = document.getElementById("rua").value;
     let num = document.getElementById("numero").value;
+    let cidade = document.getElementById("cidade").value;
+    let pagamento = document.getElementById("pagamento").value;
+    let troco = document.getElementById("troco").value;
     
     let itens = "";
+    // Nomes detalhados conforme solicitado
     const label = {
-        p1: "P - Ninho", p2: "P - Ninho+Nutella",
-        m1: "M - Ninho", m2: "M - Ninho+Nutella",
-        g1: "G - Ninho", g2: "G - Ninho+Nutella"
+        p1: "P - Pipoca Ninho + Creme de ninho", 
+        p2: "P - Pipoca Ninho + Creme de ninho + Nutella",
+        m1: "M - Pipoca Ninho + Creme de ninho", 
+        m2: "M - Pipoca Ninho + Creme de ninho + Nutella",
+        g1: "G - Pipoca Ninho + Creme de ninho", 
+        g2: "G - Pipoca Ninho + Creme de ninho + Nutella"
     };
 
+    // Monta a lista de itens
     for (let i in precos) {
         let q = document.getElementById(i).innerText;
-        if (q > 0) itens += `${q}x ${label[i]}\n`;
+        if (q > 0) {
+            itens += `${q}x ${label[i]}\n`;
+        }
     }
 
+    // Validações básicas
     if (!itens) return alert("Escolha pelo menos um item!");
-    if (!nome || !rua || !num) return alert("Preencha nome e endereço!");
+    if (!nome || !rua || !num || !pagamento) return alert("Preencha nome, endereço e forma de pagamento!");
 
-    let msg = `🍿 *NOVO PEDIDO*\n\n${itens}\n💰 *${document.getElementById("total").innerText}*\n\n👤 ${nome}\n📍 ${rua}, ${num}`;
+    // Montagem da mensagem
+    let msg = `🍿 *NOVO PEDIDO*\n`;
+    msg += `--------------------------\n`;
+    msg += `${itens}`;
+    msg += `--------------------------\n`;
+    msg += `💰 *${document.getElementById("total").innerText}*\n\n`;
     
+    msg += `💳 *Pagamento:* ${pagamento}\n`;
+    if (pagamento === "Dinheiro" && troco) {
+        msg += `💵 *Troco para:* R$ ${troco}\n`;
+    }
+    
+    msg += `\n👤 *Cliente:* ${nome}\n`;
+    msg += `📍 *Endereço:* ${rua}, ${num}\n`;
+    if (cidade) msg += `🏙️ *Cidade:* ${cidade}`;
+
     // Altere o número abaixo para o seu WhatsApp real
-    window.open("https://wa.me/5511999999999?text=" + encodeURIComponent(msg));
+    window.open("https://wa.me/5512981899366?text=" + encodeURIComponent(msg));
 }
 
 function limparPedido() {
