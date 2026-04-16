@@ -12,13 +12,82 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #ffd6e7, #ffc0cb);
+
+    /* base rosa */
+    background: radial-gradient(circle at top, #ffd1e8 0%, #ff7fb0 40%, #ff4d88 100%);
+
+    overflow-x: hidden;
+}
+
+/* brilho flutuante */
+body::before {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+
+    background: radial-gradient(circle,
+        rgba(255,255,255,0.25) 0%,
+        rgba(255,255,255,0.05) 30%,
+        transparent 70%
+    );
+
+    animation: brilho 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes brilho {
+    0% {
+        transform: translate(0,0) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(10px,-10px) scale(1.05);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate(0,0) scale(1);
+        opacity: 0.6;
+    }
 }
 
 .container {
     padding: 15px;
     max-width: 500px;
     margin: auto;
+}
+
+/* garante mesma largura real para inputs e botões */
+input, select, button {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* deixa tudo com o mesmo “bloco visual” */
+input, select {
+    padding: 14px;
+    margin: 8px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* botões alinhados perfeitamente */
+button {
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    margin-top: 10px;
+    display: block;
+}
+
+/* remove qualquer desalinhamento visual */
+.enviar, .limpar {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .topo {
@@ -36,11 +105,9 @@ body {
 .card {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(4px);
-
     border-radius: 25px;
     padding: 30px 15px 15px;
     margin-top: 60px;
-
     border: 6px solid #b85c6b;
     position: relative;
 }
@@ -52,7 +119,6 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 95px;
-    z-index: 10;
 }
 
 /* LINHA */
@@ -82,7 +148,6 @@ body {
     color: #5a2e1b;
     padding: 4px 10px;
     border-radius: 10px;
-    display: inline-block;
 }
 
 /* CONTROLE */
@@ -90,46 +155,26 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
     margin-top: 2px;
-}
-
-.controle button {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    border: none;
-    background: #ff4d88;
-    color: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 16px;
-    padding: 0;
 }
 
 .controle span {
     font-size: 16px;
     font-weight: bold;
-    line-height: 1;
     margin-bottom: -2px;
 }
 
-/* linha dos botões */
 .controle div {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 25px;
+    gap: 20px;
     margin-top: -30px;
 }
 
-/* botões */
 .controle button {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     border: none;
     background: #ff4d88;
@@ -139,14 +184,27 @@ body {
     align-items: center;
     justify-content: center;
 
-    font-size: 16px;
+    font-size: 18px;
     padding: 0;
+    line-height: 1;
 }
 
 /* NUTELLA */
+.linha-extra {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+}
+
+.plus {
+    font-size: 28px;
+    font-weight: bold;
+    color: #5a2e1b;
+}
+
 .nutella {
     width: 110px;
-    margin-top: 5px;
 }
 
 /* TOTAL */
@@ -155,7 +213,7 @@ body {
     font-weight: bold;
     text-align: center;
     margin: 20px 0;
-    color: #b03060;
+    color: #000000;
 }
 
 /* INPUTS */
@@ -178,14 +236,8 @@ button {
     margin-top: 10px;
 }
 
-.enviar {
-    background: #ff4d88;
-    color: white;
-}
-
-.limpar {
-    background: #ddd;
-}
+.enviar { background: #ff4d88; color: white; }
+.limpar { background: #ddd; }
 </style>
 </head>
 
@@ -210,7 +262,6 @@ button {
 
         <div>
             <div class="preco">24,90</div>
-
             <div class="controle">
                 <span id="p1">0</span>
                 <div>
@@ -223,13 +274,15 @@ button {
 
     <div class="linha">
         <div class="texto">
-            Pipoca <span class="sub">+ creme de Ninho</span><br>
-            <img src="nutella.png" class="nutella">
+            Pipoca + Nutella
+            <div class="linha-extra">
+                <span class="plus">+</span>
+                <img src="nutella.png" class="nutella">
+            </div>
         </div>
 
         <div>
             <div class="preco">29,90</div>
-
             <div class="controle">
                 <span id="p2">0</span>
                 <div>
@@ -246,13 +299,10 @@ button {
     <img src="M.png" class="selo">
 
     <div class="linha">
-        <div class="texto">
-            Pipoca Ninho <span class="sub">+ creme de Ninho</span>
-        </div>
+        <div class="texto">Pipoca Ninho</div>
 
         <div>
             <div class="preco">29,90</div>
-
             <div class="controle">
                 <span id="m1">0</span>
                 <div>
@@ -265,13 +315,15 @@ button {
 
     <div class="linha">
         <div class="texto">
-            Pipoca <span class="sub">+ creme de Ninho</span><br>
-            <img src="nutella.png" class="nutella">
+            Pipoca + Nutella
+            <div class="linha-extra">
+                <span class="plus">+</span>
+                <img src="nutella.png" class="nutella">
+            </div>
         </div>
 
         <div>
             <div class="preco">34,90</div>
-
             <div class="controle">
                 <span id="m2">0</span>
                 <div>
@@ -288,13 +340,10 @@ button {
     <img src="G.png" class="selo">
 
     <div class="linha">
-        <div class="texto">
-            Pipoca Ninho <span class="sub">+ creme de Ninho</span>
-        </div>
+        <div class="texto">Pipoca Ninho</div>
 
         <div>
             <div class="preco">47,90</div>
-
             <div class="controle">
                 <span id="g1">0</span>
                 <div>
@@ -307,13 +356,15 @@ button {
 
     <div class="linha">
         <div class="texto">
-            Pipoca <span class="sub">+ creme de Ninho</span><br>
-            <img src="nutella.png" class="nutella">
+            Pipoca + Nutella
+            <div class="linha-extra">
+                <span class="plus">+</span>
+                <img src="nutella.png" class="nutella">
+            </div>
         </div>
 
         <div>
             <div class="preco">52,90</div>
-
             <div class="controle">
                 <span id="g2">0</span>
                 <div>
@@ -330,9 +381,12 @@ button {
 
 <h3>Seus dados</h3>
 
-<input type="text" id="nome" placeholder="Seu nome *">
+<input type="text" id="nome" placeholder="Nome *">
+<input type="text" id="cep" placeholder="CEP *" onblur="buscarCEP()">
+<input type="text" id="cidade" placeholder="Cidade *">
 <input type="text" id="rua" placeholder="Rua *">
 <input type="number" id="numero" placeholder="Número *">
+<input type="text" id="complemento" placeholder="Complemento">
 
 <button class="enviar" onclick="enviarPedido()">Enviar Pedido</button>
 <button class="limpar" onclick="limparPedido()">Limpar Pedido</button>
@@ -341,43 +395,76 @@ button {
 
 <script>
 const precos = {
-    p1: 24.9, p2: 29.9,
-    m1: 29.9, m2: 34.9,
-    g1: 47.9, g2: 52.9
+p1:24.9,p2:29.9,
+m1:29.9,m2:34.9,
+g1:47.9,g2:52.9
 };
 
-function alterar(id, valor){
-    let el = document.getElementById(id);
-    let atual = parseInt(el.innerText);
-    atual += valor;
-    if(atual < 0) atual = 0;
-    el.innerText = atual;
-    atualizarTotal();
+function alterar(id,v){
+let el=document.getElementById(id);
+let x=parseInt(el.innerText)+v;
+if(x<0)x=0;
+el.innerText=x;
+calc();
 }
 
-function atualizarTotal(){
-    let total = 0;
-    for(let id in precos){
-        let qtd = parseInt(document.getElementById(id).innerText);
-        total += qtd * precos[id];
-    }
-
-    document.getElementById("total").innerText =
-        "Total: R$ " + total.toFixed(2).replace(".", ",");
+function calc(){
+let t=0;
+for(let i in precos){
+t+=document.getElementById(i).innerText*precos[i];
+}
+document.getElementById("total").innerText="Total: R$ "+t.toFixed(2).replace(".",",");
 }
 
-function limparPedido(){
-    if(confirm("Limpar pedido?")){
-        for(let id in precos){
-            document.getElementById(id).innerText = 0;
-        }
-        document.querySelectorAll("input").forEach(i => i.value = "");
-        atualizarTotal();
-    }
+/* CEP VIA VIACEP */
+function buscarCEP(){
+let cep=document.getElementById("cep").value.replace(/\D/g,'');
+
+if(cep.length!==8) return;
+
+fetch(`https://viacep.com.br/ws/${cep}/json/`)
+.then(r=>r.json())
+.then(d=>{
+if(d.erro) return alert("CEP inválido");
+
+document.getElementById("rua").value=d.logradouro||"";
+document.getElementById("cidade").value=d.localidade||"";
+});
 }
 
-function enviarPedido(){
-    alert("Pedido enviado (WhatsApp abre aqui)");
+function montar(){
+let txt="🍿 *Pedido*\n\n";
+for(let g of [["p1","p2","P"],["m1","m2","M"],["g1","g2","G"]]){
+let bloco="";
+g.slice(0,2).forEach(i=>{
+let q=document.getElementById(i).innerText;
+if(q>0)bloco+=q+"x "+i+"\n";
+});
+if(bloco)txt+="*"+g[2]+"*\n"+bloco+"\n";
+}
+return txt;
+}
+
+function enviar(){
+let nome=document.getElementById("nome").value;
+let cep=document.getElementById("cep").value;
+let cidade=document.getElementById("cidade").value;
+let rua=document.getElementById("rua").value;
+let numero=document.getElementById("numero").value;
+let comp=document.getElementById("complemento").value;
+
+let msg=montar()+`
+
+👤 ${nome}
+📍 ${rua}, ${numero} - ${comp}
+🏙️ ${cidade}
+📮 ${cep}`;
+
+window.open("https://wa.me/5511999999999?text="+encodeURIComponent(msg));
+}
+
+function limpar(){
+location.reload();
 }
 </script>
 
