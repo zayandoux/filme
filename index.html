@@ -69,18 +69,8 @@ body::after {
 @keyframes glitterMove {
     from { transform: translateY(0); }
     to { transform: translateY(-250px); }
-}}
-
-@keyframes glowMove {
-    0% { transform: translate(0,0) scale(1); opacity: 0.5; }
-    50% { transform: translate(15px,-10px) scale(1.05); opacity: 0.9; }
-    100% { transform: translate(0,0) scale(1); opacity: 0.5; }
 }
 
-@keyframes glitterMove {
-    from { transform: translateY(0); }
-    to { transform: translateY(-1000px); }
-}
 .container {
     padding: 15px;
     max-width: 500px;
@@ -110,12 +100,7 @@ button {
     font-size: 18px;
     margin-top: 10px;
     display: block;
-}
-
-/* remove qualquer desalinhamento visual */
-.enviar, .limpar {
-    margin-left: 0;
-    margin-right: 0;
+    cursor: pointer;
 }
 
 .topo {
@@ -140,17 +125,11 @@ button {
     margin-top: 60px;
 
     position: relative;
-
     box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    border: 2px solid rgba(255, 77, 136, 0.55);
 }
 
-/* 🌸 BORDA SÓ PARA O CARD DE VIDRO */
-.card.glass {
-    border: 2px solid rgba(255, 77, 136, 0.55);
-    box-shadow:
-        0 8px 25px rgba(0,0,0,0.12),
-        0 0 15px rgba(255, 77, 136, 0.25);
-}/* SELO */
+/* SELO */
 .selo {
     position: absolute;
     top: 0;
@@ -186,6 +165,7 @@ button {
     color: #5a2e1b;
     padding: 4px 10px;
     border-radius: 10px;
+    text-align: center;
 }
 
 /* CONTROLE */
@@ -254,26 +234,6 @@ button {
     color: #000000;
 }
 
-/* INPUTS */
-input, select {
-    width: 100%;
-    padding: 14px;
-    margin: 8px 0;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-/* BOTÕES */
-button {
-    width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    margin-top: 10px;
-}
-
 .enviar { background: #ff4d88; color: white; }
 .limpar { background: #ddd; }
 </style>
@@ -287,9 +247,8 @@ button {
     <img src="logo.png" class="logo">
 </div>
 
-<h2 style="text-align:center;">🍿 Monte seu pedido</h2>
+<h2 style="text-align:center;"> Faça seu pedido</h2>
 
-<!-- ================= P ================= -->
 <div class="card">
     <img src="P.png" class="selo">
 
@@ -332,7 +291,7 @@ button {
     </div>
 </div>
 
-<!-- ================= M ================= -->
+
 <div class="card">
     <img src="M.png" class="selo">
 
@@ -344,10 +303,10 @@ button {
         <div>
             <div class="preco">29,90</div>
             <div class="controle">
-                <span id="p1">0</span>
+                <span id="m1">0</span>
                 <div>
-                    <button onclick="alterar('p1', -1)">-</button>
-                    <button onclick="alterar('p1', 1)">+</button>
+                    <button onclick="alterar('m1', -1)">-</button>
+                    <button onclick="alterar('m1', 1)">+</button>
                 </div>
             </div>
         </div>
@@ -365,17 +324,16 @@ button {
         <div>
             <div class="preco">34,90</div>
             <div class="controle">
-                <span id="p2">0</span>
+                <span id="m2">0</span>
                 <div>
-                    <button onclick="alterar('p2', -1)">-</button>
-                    <button onclick="alterar('p2', 1)">+</button>
+                    <button onclick="alterar('m2', -1)">-</button>
+                    <button onclick="alterar('m2', 1)">+</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- ================= G ================= -->
 <div class="card">
     <img src="G.png" class="selo">
 
@@ -387,10 +345,10 @@ button {
         <div>
             <div class="preco">47,90</div>
             <div class="controle">
-                <span id="p1">0</span>
+                <span id="g1">0</span>
                 <div>
-                    <button onclick="alterar('p1', -1)">-</button>
-                    <button onclick="alterar('p1', 1)">+</button>
+                    <button onclick="alterar('g1', -1)">-</button>
+                    <button onclick="alterar('g1', 1)">+</button>
                 </div>
             </div>
         </div>
@@ -408,17 +366,16 @@ button {
         <div>
             <div class="preco">52,90</div>
             <div class="controle">
-                <span id="p2">0</span>
+                <span id="g2">0</span>
                 <div>
-                    <button onclick="alterar('p2', -1)">-</button>
-                    <button onclick="alterar('p2', 1)">+</button>
+                    <button onclick="alterar('g2', -1)">-</button>
+                    <button onclick="alterar('g2', 1)">+</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- TOTAL -->
 <div class="total" id="total">Total: R$ 0,00</div>
 
 <h3>Seus dados</h3>
@@ -429,6 +386,17 @@ button {
 <input type="text" id="rua" placeholder="Rua *">
 <input type="number" id="numero" placeholder="Número *">
 <input type="text" id="complemento" placeholder="Complemento">
+<select id="pagamento" onchange="mostrarTroco()">
+<option value="">Forma de pagamento *</option>
+<option value="Dinheiro">Dinheiro</option>
+<option value="Pix">Pix</option>
+<option value="Débito">Débito</option>
+<option value="Crédito">Crédito</option>
+</select>
+
+<div id="areaTroco" style="display:none;">
+<input type="number" id="troco" placeholder="Troco para quanto?">
+</div>
 
 <button class="enviar" onclick="enviarPedido()">Enviar Pedido</button>
 <button class="limpar" onclick="limparPedido()">Limpar Pedido</button>
@@ -437,76 +405,72 @@ button {
 
 <script>
 const precos = {
-p1:24.9,p2:29.9,
-m1:29.9,m2:34.9,
-g1:47.9,g2:52.9
+    p1:24.9, p2:26.9,
+    m1:29.9, m2:34.9,
+    g1:47.9, g2:52.9
 };
 
-function alterar(id,v){
-let el=document.getElementById(id);
-let x=parseInt(el.innerText)+v;
-if(x<0)x=0;
-el.innerText=x;
-calc();
+function alterar(id, v) {
+    let el = document.getElementById(id);
+    let x = parseInt(el.innerText) + v;
+    if (x < 0) x = 0;
+    el.innerText = x;
+    calc();
 }
 
-function calc(){
-let t=0;
-for(let i in precos){
-t+=document.getElementById(i).innerText*precos[i];
-}
-document.getElementById("total").innerText="Total: R$ "+t.toFixed(2).replace(".",",");
-}
-
-/* CEP VIA VIACEP */
-function buscarCEP(){
-let cep=document.getElementById("cep").value.replace(/\D/g,'');
-
-if(cep.length!==8) return;
-
-fetch(`https://viacep.com.br/ws/${cep}/json/`)
-.then(r=>r.json())
-.then(d=>{
-if(d.erro) return alert("CEP inválido");
-
-document.getElementById("rua").value=d.logradouro||"";
-document.getElementById("cidade").value=d.localidade||"";
-});
+function calc() {
+    let t = 0;
+    for (let i in precos) {
+        let qtd = parseInt(document.getElementById(i).innerText);
+        t += qtd * precos[i];
+    }
+    document.getElementById("total").innerText = "Total: R$ " + t.toFixed(2).replace(".", ",");
 }
 
-function montar(){
-let txt="🍿 *Pedido*\n\n";
-for(let g of [["p1","p2","P"],["m1","m2","M"],["g1","g2","G"]]){
-let bloco="";
-g.slice(0,2).forEach(i=>{
-let q=document.getElementById(i).innerText;
-if(q>0)bloco+=q+"x "+i+"\n";
-});
-if(bloco)txt+="*"+g[2]+"*\n"+bloco+"\n";
-}
-return txt;
-}
-
-function enviar(){
-let nome=document.getElementById("nome").value;
-let cep=document.getElementById("cep").value;
-let cidade=document.getElementById("cidade").value;
-let rua=document.getElementById("rua").value;
-let numero=document.getElementById("numero").value;
-let comp=document.getElementById("complemento").value;
-
-let msg=montar()+`
-
-👤 ${nome}
-📍 ${rua}, ${numero} - ${comp}
-🏙️ ${cidade}
-📮 ${cep}`;
-
-window.open("https://wa.me/5511999999999?text="+encodeURIComponent(msg));
+function buscarCEP() {
+    let cep = document.getElementById("cep").value.replace(/\D/g, '');
+    if (cep.length !== 8) return;
+    fetch(`https://viacep.com.br/ws/${cep}/json//`)
+        .then(r => r.json())
+        .then(d => {
+            if (d.erro) return alert("CEP inválido");
+            document.getElementById("rua").value = d.logradouro || "";
+            document.getElementById("cidade").value = d.localidade || "";
+        });
 }
 
-function limpar(){
-location.reload();
+function mostrarTroco() {
+    let p = document.getElementById("pagamento").value;
+    document.getElementById("areaTroco").style.display = (p === "Dinheiro") ? "block" : "none";
+}
+
+function enviarPedido() {
+    let nome = document.getElementById("nome").value;
+    let rua = document.getElementById("rua").value;
+    let num = document.getElementById("numero").value;
+    
+    let itens = "";
+    const label = {
+        p1: "P - Ninho", p2: "P - Ninho+Nutella",
+        m1: "M - Ninho", m2: "M - Ninho+Nutella",
+        g1: "G - Ninho", g2: "G - Ninho+Nutella"
+    };
+
+    for (let i in precos) {
+        let q = document.getElementById(i).innerText;
+        if (q > 0) itens += `${q}x ${label[i]}\n`;
+    }
+
+    if (!itens) return alert("Escolha pelo menos um item!");
+    if (!nome || !rua || !num) return alert("Preencha nome e endereço!");
+
+    let msg = `🍿 *NOVO PEDIDO*\n\n${itens}\n💰 *${document.getElementById("total").innerText}*\n\n👤 ${nome}\n📍 ${rua}, ${num}`;
+    
+    window.open("https://wa.me/5511999999999?text=" + encodeURIComponent(msg));
+}
+
+function limparPedido() {
+    location.reload();
 }
 </script>
 
