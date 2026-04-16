@@ -6,7 +6,6 @@
 
 <title>Doce Pipoca</title>
 
-<!-- FONTE PARECIDA COM A ARTE -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -28,19 +27,34 @@ body {
 }
 
 .logo {
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     object-fit: cover;
 }
 
 /* CARD */
 .card {
-    background: #f3eeee;
-    border-radius: 30px;
-    padding: 25px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+
+    border-radius: 25px;
+    padding: 30px 15px 15px;
+    margin-top: 60px;
+
+    border: 6px solid #b85c6b;
     position: relative;
-    border: 8px solid #b85c6b;
+}
+
+/* SELO P */
+.selo {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95px;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 /* LINHAS */
@@ -48,19 +62,19 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 /* TEXTO */
 .texto {
     font-family: 'Playfair Display', serif;
-    font-size: 30px;
+    font-size: 24px;
     color: #5a2e1b;
     line-height: 1.2;
 }
 
 .sub {
-    font-size: 18px;
+    font-size: 15px;
 }
 
 /* PREÇO */
@@ -70,8 +84,13 @@ body {
 
 .preco {
     font-family: 'Playfair Display', serif;
-    font-size: 50px;
+    font-size: 38px;
     color: #5a2e1b;
+
+    background: rgba(184, 92, 107, 0.2);
+    padding: 4px 10px;
+    border-radius: 10px;
+    display: inline-block;
 }
 
 /* CONTROLE */
@@ -79,7 +98,7 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: 6px;
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 .controle button {
@@ -99,28 +118,20 @@ body {
 }
 
 .controle span {
-    font-size: 16px;
+    font-size: 15px;
     min-width: 18px;
     text-align: center;
 }
 
 /* NUTELLA */
 .nutella {
-    width: 120px;
+    width: 110px;
     margin-top: 5px;
-}
-
-/* SELO P */
-.selo {
-    position: absolute;
-    right: -20px;
-    top: 20px;
-    width: 95px;
 }
 
 /* TOTAL */
 .total {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     text-align: center;
     margin: 20px 0;
@@ -170,6 +181,8 @@ button {
 
 <div class="card">
 
+    <img src="p.png" class="selo">
+
     <!-- PRODUTO 1 -->
     <div class="linha">
         <div class="texto">
@@ -205,9 +218,6 @@ button {
         </div>
     </div>
 
-    <!-- SELO -->
-    <img src="P.png" class="selo">
-
 </div>
 
 <div class="total" id="total">Total: R$ 0,00</div>
@@ -219,6 +229,7 @@ button {
 <input type="number" id="numero" placeholder="Número *">
 
 <button class="enviar" onclick="enviarPedido()">Enviar Pedido</button>
+<button class="limpar" onclick="limparPedido()">Limpar Pedido</button>
 
 </div>
 
@@ -246,6 +257,16 @@ function atualizarTotal(){
 
     document.getElementById("total").innerText =
         "Total: R$ " + total.toFixed(2).replace(".", ",");
+}
+
+function limparPedido(){
+    if(confirm("Limpar pedido?")){
+        for(let id in precos){
+            document.getElementById(id).innerText = 0;
+        }
+        document.querySelectorAll("input").forEach(i => i.value = "");
+        atualizarTotal();
+    }
 }
 
 function enviarPedido(){
