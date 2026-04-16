@@ -13,12 +13,6 @@ body {
     background: linear-gradient(180deg, #ffd6e7, #ffc0cb);
 }
 
-/* FONTE */
-@font-face {
-    font-family: 'AZ Cupcakes';
-    src: url('AZCupcakesBold.ttf');
-}
-
 .container {
     padding: 15px;
     max-width: 500px;
@@ -40,44 +34,51 @@ body {
 /* TITULO */
 h2 {
     text-align: center;
-    font-size: 26px;
 }
 
-/* PRODUTOS */
-.produto {
-    background: white;
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'AZ Cupcakes', Arial, sans-serif;
-    color: #5a2e1b;
-    font-size: 18px;
+/* IMAGEM DO PRODUTO */
+.produto-imagem {
+    position: relative;
+    width: 100%;
+}
+
+.img-card {
+    width: 100%;
+    border-radius: 20px;
 }
 
 /* CONTROLES */
-.controls {
+.controle {
+    position: absolute;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
-.controls button {
+.controle button {
     background: #ff4d88;
     border: none;
     color: white;
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    font-size: 22px;
+    font-size: 18px;
 }
 
-.controls span {
-    font-size: 18px;
-    min-width: 20px;
-    text-align: center;
+.controle span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* POSIÇÕES (AJUSTÁVEL) */
+.controle1 {
+    top: 35%;
+    right: 20px;
+}
+
+.controle2 {
+    top: 65%;
+    right: 20px;
 }
 
 /* INPUTS */
@@ -137,67 +138,25 @@ button {
 
 <h2>🍿 Monte seu pedido</h2>
 
-<div class="produto">
-Pipoca Ninho + Nutella (MINI) - 16,90
-<div class="controls">
-<button onclick="alterar('p0', -1)">-</button>
-<span id="p0">0</span>
-<button onclick="alterar('p0', 1)">+</button>
-</div>
-</div>
+<!-- IMAGEM COM PRODUTOS -->
+<div class="produto-imagem">
 
-<div class="produto">
-Pipoca Ninho (P) - 24,90
-<div class="controls">
-<button onclick="alterar('p1', -1)">-</button>
-<span id="p1">0</span>
-<button onclick="alterar('p1', 1)">+</button>
-</div>
-</div>
+    <img src="tp.png" class="img-card">
 
-<div class="produto">
-Pipoca Ninho + Nutella (P) - 26,90
-<div class="controls">
-<button onclick="alterar('p2', -1)">-</button>
-<span id="p2">0</span>
-<button onclick="alterar('p2', 1)">+</button>
-</div>
-</div>
+    <!-- PRODUTO 1 -->
+    <div class="controle controle1">
+        <button onclick="alterar('p1', -1)">-</button>
+        <span id="p1">0</span>
+        <button onclick="alterar('p1', 1)">+</button>
+    </div>
 
-<div class="produto">
-Pipoca Ninho (M) - 29,90
-<div class="controls">
-<button onclick="alterar('p3', -1)">-</button>
-<span id="p3">0</span>
-<button onclick="alterar('p3', 1)">+</button>
-</div>
-</div>
+    <!-- PRODUTO 2 -->
+    <div class="controle controle2">
+        <button onclick="alterar('p2', -1)">-</button>
+        <span id="p2">0</span>
+        <button onclick="alterar('p2', 1)">+</button>
+    </div>
 
-<div class="produto">
-Pipoca Ninho + Nutella (M) - 34,90
-<div class="controls">
-<button onclick="alterar('p4', -1)">-</button>
-<span id="p4">0</span>
-<button onclick="alterar('p4', 1)">+</button>
-</div>
-</div>
-
-<div class="produto">
-Pipoca Ninho (G) - 47,90
-<div class="controls">
-<button onclick="alterar('p5', -1)">-</button>
-<span id="p5">0</span>
-<button onclick="alterar('p5', 1)">+</button>
-</div>
-</div>
-
-<div class="produto">
-Pipoca Ninho + Nutella (G) - 52,90
-<div class="controls">
-<button onclick="alterar('p6', -1)">-</button>
-<span id="p6">0</span>
-<button onclick="alterar('p6', 1)">+</button>
-</div>
 </div>
 
 <div class="total" id="total">Total: R$ 0,00</div>
@@ -234,13 +193,8 @@ Pipoca Ninho + Nutella (G) - 52,90
 
 <script>
 const precos = {
-p0: 16.9,
-p1: 24.9,
-p2: 26.9,
-p3: 29.9,
-p4: 34.9,
-p5: 47.9,
-p6: 52.9
+    p1: 24.9,
+    p2: 26.9
 };
 
 function alterar(id, valor){
