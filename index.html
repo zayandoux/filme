@@ -376,9 +376,8 @@ function calc() {
         let qtd = parseInt(document.getElementById(i).innerText);
         t += qtd * precos[i];
     }
-    document.getElementById("total").innerText = "Total: R$ " + t.toFixed(2).replace(".", ",");
+    document.getElementById("total").innerText = "Total: R$ " + t.toFixed(2).replace(".", ",") + " + FRETE";
 }
-
 function buscarCEP() {
     let cep = document.getElementById("cep").value.replace(/\D/g, '');
     if (cep.length !== 8) return;
@@ -403,7 +402,7 @@ function enviarPedido() {
     let cidade = document.getElementById("cidade").value;
     let pagamento = document.getElementById("pagamento").value;
     let troco = document.getElementById("troco").value;
-    
+    let totalTexto = document.getElementById("total").innerText;    
     let itens = "";
     // Nomes detalhados conforme solicitado
     const label = {
@@ -428,20 +427,20 @@ function enviarPedido() {
     if (!nome || !rua || !num || !pagamento) return alert("Preencha nome, endereço e forma de pagamento!");
 
     // Montagem da mensagem
-    let msg = `🍿 *NOVO PEDIDO*\n`;
+    let msg = `*NOVO PEDIDO*\n`;
     msg += `--------------------------\n`;
     msg += `${itens}`;
     msg += `--------------------------\n`;
-    msg += `💰 *${document.getElementById("total").innerText}*\n\n`;
+    msg += `*${document.getElementById("total").innerText}*\n\n`;
     
-    msg += `💳 *Pagamento:* ${pagamento}\n`;
+    msg += ` *Pagamento:* ${pagamento}\n`;
     if (pagamento === "Dinheiro" && troco) {
-        msg += `💵 *Troco para:* R$ ${troco}\n`;
+        msg += ` *Troco para:* R$ ${troco}\n`;
     }
     
-    msg += `\n👤 *Cliente:* ${nome}\n`;
-    msg += `📍 *Endereço:* ${rua}, ${num}\n`;
-    if (cidade) msg += `🏙️ *Cidade:* ${cidade}`;
+    msg += `\n *Cliente:* ${nome}\n`;
+    msg += ` *Endereço:* ${rua}, ${num}\n`;
+    if (cidade) msg += ` *Cidade:* ${cidade}`;
 
     // Altere o número abaixo para o seu WhatsApp real
     window.open("https://wa.me/5512981899366?text=" + encodeURIComponent(msg));
