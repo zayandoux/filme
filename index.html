@@ -119,12 +119,39 @@ button {
     border: 2px solid rgba(255, 77, 136, 0.55);
 }
 
-.selo {
+/* CONTAINER PARA POSICIONAR SELO E BADGE JUNTOS */
+.selo-container {
     position: absolute;
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.selo {
     width: 95px;
+    position: static; /* Remove o absolute original para fluir no flex */
+    transform: none;
+}
+
+/* BADGE PERSONALIZADA */
+.badge {
+  width: 90px;
+  height: 40px;
+  border-radius: 20px;
+  background: radial-gradient(circle at 50% 40%, #b33a3a, #7a1f1f);
+  border: 2px solid #d4a373;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Times New Roman', serif;
+  font-size: 20px;
+  color: #f5d7a1;
+  text-shadow: 0 1px 0 #c9a46b, 0 2px 3px rgba(0,0,0,0.5);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .linha {
@@ -218,7 +245,10 @@ button {
 </div>
 
     <div class="card">
-        <img src="P.png" class="selo">
+        <div class="selo-container">
+            <img src="P.png" class="selo">
+            <div class="badge">350ml</div>
+        </div>
         <div class="linha">
             <div class="texto">Pipoca Ninho <span class="sub">+ creme de Ninho</span></div>
             <div>
@@ -255,7 +285,10 @@ button {
     </div>
 
     <div class="card">
-        <img src="M.png" class="selo">
+        <div class="selo-container">
+            <img src="M.png" class="selo">
+            <div class="badge">500ml</div>
+        </div>
         <div class="linha">
             <div class="texto">Pipoca Ninho <span class="sub">+ creme de Ninho</span></div>
             <div>
@@ -292,7 +325,10 @@ button {
     </div>
 
     <div class="card">
-        <img src="G.png" class="selo">
+        <div class="selo-container">
+            <img src="G.png" class="selo">
+            <div class="badge">750ml</div>
+        </div>
         <div class="linha">
             <div class="texto">Pipoca Ninho <span class="sub">+ creme de Ninho</span></div>
             <div>
@@ -404,7 +440,6 @@ function enviarPedido() {
     let troco = document.getElementById("troco").value;
     let totalTexto = document.getElementById("total").innerText;    
     let itens = "";
-    // Nomes detalhados conforme solicitado
     const label = {
         p1: "P - Pipoca Ninho + Creme de ninho", 
         p2: "P - Pipoca Ninho + Creme de ninho + Nutella",
@@ -414,7 +449,6 @@ function enviarPedido() {
         g2: "G - Pipoca Ninho + Creme de ninho + Nutella"
     };
 
-    // Monta a lista de itens
     for (let i in precos) {
         let q = document.getElementById(i).innerText;
         if (q > 0) {
@@ -422,11 +456,9 @@ function enviarPedido() {
         }
     }
 
-    // Validações básicas
     if (!itens) return alert("Escolha pelo menos um item!");
     if (!nome || !rua || !num || !pagamento) return alert("Preencha nome, endereço e forma de pagamento!");
 
-    // Montagem da mensagem
     let msg = `*NOVO PEDIDO*\n`;
     msg += `--------------------------\n`;
     msg += `${itens}`;
@@ -442,7 +474,6 @@ function enviarPedido() {
     msg += ` *Endereço:* ${rua}, ${num}\n`;
     if (cidade) msg += ` *Cidade:* ${cidade}`;
 
-    // Altere o número abaixo para o seu WhatsApp real
     window.open("https://wa.me/5512981899366?text=" + encodeURIComponent(msg));
 }
 
